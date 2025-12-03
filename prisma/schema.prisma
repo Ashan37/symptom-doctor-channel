@@ -103,3 +103,24 @@ fileUrl String
 createdAt DateTime @default(now())
 patient Patient @relation(fields: [patientId], references: [id])
 }
+
+model Channel {
+  id         String    @id @default(cuid())
+  patientId  String
+  doctorId   String
+  createdAt  DateTime  @default(now())
+
+  patient    Patient   @relation(fields: [patientId], references: [id])
+  doctor     Doctor    @relation(fields: [doctorId], references: [id])
+  messages   Message[]
+}
+
+model Message {
+  id         String    @id @default(cuid())
+  channelId  String
+  senderId   String   // user ID
+  content    String
+  createdAt  DateTime @default(now())
+
+  channel    Channel  @relation(fields: [channelId], references: [id])
+}

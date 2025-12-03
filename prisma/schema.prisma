@@ -121,6 +121,14 @@ model Message {
   senderId   String   // user ID
   content    String
   createdAt  DateTime @default(now())
-
   channel    Channel  @relation(fields: [channelId], references: [id])
+}
+model Feedback {
+  id          String     @id @default(cuid())
+  doctorId    String
+  reportId    String
+  message     String
+  createdAt   DateTime   @default(now())
+  doctor      Doctor     @relation(fields: [doctorId], references: [id])
+  report      SymptomReport @relation(fields: [reportId], references: [id])
 }
